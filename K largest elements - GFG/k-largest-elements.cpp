@@ -12,15 +12,24 @@ class Solution
     //Function to return k largest elements from an array.
     vector<int> kLargest(int arr[], int n, int k)
     {
-        priority_queue<int> pq;
+        priority_queue<int, vector<int>, greater<int>> pq;
         
         for(int i = 0; i < n; i++) {
-            pq.push(arr[i]);
+            
+            if(pq.size() == k) {
+                
+                if(pq.top() < arr[i]) {
+                    pq.pop();
+                    pq.push(arr[i]);
+                }
+                
+            } else
+                pq.push(arr[i]);
         }
         
-        vector<int> ans;
-        while(k --> 0) {
-            ans.push_back(pq.top());
+        vector<int> ans(pq.size());
+        while(pq.size() > 0) {
+            ans[pq.size()-1] = pq.top();
             pq.pop();
         }
         
