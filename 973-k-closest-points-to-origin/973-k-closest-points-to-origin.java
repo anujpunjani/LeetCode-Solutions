@@ -20,10 +20,13 @@ class Solution {
     
     public int[][] kClosest(int[][] points, int k) {
         PriorityQueue<Pair> pq = new PriorityQueue<>();
+        ArrayList<Pair> list = new ArrayList<>();
         
         for(int[] point : points) {
-            pq.add(new Pair(point[0], point[1]));
+            list.add(new Pair(point[0], point[1]));
         }
+        
+        pq.addAll(list);
         
         int[][] ans = new int[k][2];
         
