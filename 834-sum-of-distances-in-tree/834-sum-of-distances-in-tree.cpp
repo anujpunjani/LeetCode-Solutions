@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-        vector<unordered_set<int>> graph(n);
+        vector<set<int>> graph(n);
         
         for(auto edge : edges) {
             graph[edge[0]].insert(edge[1]);
@@ -17,7 +17,7 @@ public:
         return ans;
     }
     
-    void helper1(vector<unordered_set<int>>& graph, vector<int>& nodes_below, vector<int>& edges_below, int src, int parent)     {
+    void helper1(vector<set<int>>& graph, vector<int>& nodes_below, vector<int>& edges_below, int src, int parent)     {
             
         for(auto nbr : graph[src]) {
             
@@ -33,7 +33,7 @@ public:
         nodes_below[src]++;
     }
     
-    void helper2(vector<unordered_set<int>>& graph, vector<int>& nodes, vector<int>& ans, int src, int parent)     {
+    void helper2(vector<set<int>>& graph, vector<int>& nodes, vector<int>& ans, int src, int parent)     {
             
         for(auto nbr : graph[src]) {
             
