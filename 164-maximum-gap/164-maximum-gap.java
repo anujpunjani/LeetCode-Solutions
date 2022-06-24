@@ -5,16 +5,14 @@ class Solution {
         int max = Integer.MIN_VALUE;
         for(int num : nums) max = Math.max(max, num);
         
-        int[] ans = nums;
-        
         for(int exp = 1; max/exp > 0; exp*=10) {
-            ans = countSort(ans, exp);
+            nums = countSort(nums, exp);
         }
         
         int gap = 0;
         
         for(int i = 1; i < nums.length; i++)
-            gap = Math.max(gap, ans[i] - ans[i-1]);
+            gap = Math.max(gap, nums[i] - nums[i-1]);
         
         return gap;
     }
