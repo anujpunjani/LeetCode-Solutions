@@ -11,10 +11,8 @@ class Solution {
         for(int i = 0; i < t.length(); i++)
             tmap.put(t.charAt(i), tmap.getOrDefault(t.charAt(i), 0) + 1);
         
-        int windowsize = 0, count = 0;
-        int left = 0, right = 0;
-        
-        String ans = "";
+        int windowsize = Integer.MAX_VALUE, count = 0;
+        int left = 0, start = 0;
         
         for(int i = 0; i < s.length(); i++) {
             
@@ -28,9 +26,11 @@ class Solution {
             
             while (count == t.length()) {
                 
-                String temp = s.substring(left, i + 1);
-                if(ans.length() == 0 || ans.length() > temp.length())
-                    ans = temp;
+                int temp = i + 1 - left;
+                if(temp < windowsize) {
+                    windowsize = temp;
+                    start = left;
+                }
                 
                 if(tmap.containsKey(s.charAt(left))) {
                     smap.put(s.charAt(left), smap.get(s.charAt(left)) - 1);
@@ -45,6 +45,6 @@ class Solution {
             
         }
         
-        return ans;
+        return windowsize == Integer.MAX_VALUE? "" : s.substring(start, start + windowsize);
     }
 }
