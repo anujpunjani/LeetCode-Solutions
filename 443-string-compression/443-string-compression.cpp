@@ -30,6 +30,7 @@ public:
             }
             
         }
+        
         if(count != 1) {
             chars[index++] = last;
             
