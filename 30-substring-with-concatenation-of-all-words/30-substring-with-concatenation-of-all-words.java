@@ -30,7 +30,8 @@ class Solution {
                 int t2 = wmap.get(word);
                 
                 if(t1 != t2) {
-                    flag = false; break;
+                    flag = false; 
+                    break;
                 }
             }
             if(flag)
