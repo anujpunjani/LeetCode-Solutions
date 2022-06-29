@@ -7,7 +7,6 @@ class BrowserHistory {
     public BrowserHistory(String homepage) {
         list = new ArrayList<>();
         list.add(homepage);
-        size = 0;
     }
     
     public void visit(String url) {
