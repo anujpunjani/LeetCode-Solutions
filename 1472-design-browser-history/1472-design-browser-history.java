@@ -7,12 +7,14 @@ class BrowserHistory {
     public BrowserHistory(String homepage) {
         list = new ArrayList<>();
         list.add(homepage);
+        size = 0;
     }
     
     public void visit(String url) {
         if(index + 1 == list.size()) list.add(null);
         list.set(index + 1, url);
-        size = ++index;
+        index++;
+        size = index;
     }
     
     public String back(int steps) {
