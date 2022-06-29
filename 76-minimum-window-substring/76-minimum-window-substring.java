@@ -3,7 +3,7 @@ class Solution {
         
         if(t.length() > s.length()) return "";
         
-        if(s.indexOf(t) != -1) return t;
+        // if(s.indexOf(t) != -1) return t;
         
         HashMap<Character, Integer> smap = new HashMap<>();
         HashMap<Character, Integer> tmap = new HashMap<>();
