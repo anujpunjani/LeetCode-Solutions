@@ -23,15 +23,17 @@ class Solution {
     public List<String> topKFrequent(String[] words, int k) {
         
         HashMap<String, Integer> map = new HashMap<>();
-        PriorityQueue<Pair> minheap = new PriorityQueue<>();
+        PriorityQueue<Pair> minheap = new PriorityQueue<>(Collections.reverseOrder());
         
         List<String> ans = new ArrayList<>();
         
         for(String word : words)
             map.put(word, map.getOrDefault(word, 0) + 1);
         
-        for(String word : map.keySet())
-                minheap.add(new Pair(word, map.get(word)));
+        for(String word : map.keySet()) {
+            minheap.add(new Pair(word, map.get(word)));
+            if(minheap.size() > k) minheap.remove();
+        }
 
         
         while(k --> 0) {
@@ -39,6 +41,7 @@ class Solution {
             ans.add(x.word);
         }
             
+        Collections.reverse(ans);
         
         return ans;
     }
