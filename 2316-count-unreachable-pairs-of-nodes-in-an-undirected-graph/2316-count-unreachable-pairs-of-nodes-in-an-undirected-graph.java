@@ -1,10 +1,9 @@
 class Solution {
-    long count = 0, visit = 0;
+    long count = 0;
     private void countComps(HashSet<Integer>[] graph, int src, boolean[] vis) {
         
         vis[src] = true;
         count++;
-        visit++;
         for(Integer nbr : graph[src]) {
             if(vis[nbr] == false)
                 countComps(graph, nbr, vis);
@@ -31,11 +30,11 @@ class Solution {
             if(vis[i] == false) {
                 count = 0;
                 countComps(graph, i, vis);
-                ans += (count * (n - visit));
+                ans += (count * (n*1l - count));
             }
         }
 
         
-        return ans;
+        return ans/2l;
     }
 }
