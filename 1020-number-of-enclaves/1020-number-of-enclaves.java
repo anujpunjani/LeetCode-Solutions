@@ -1,12 +1,10 @@
 class Solution {
-    int count = 0;
     void dfs(int[][] grid, int sr, int sc) {
         
         if(sr < 0 || sc < 0 || sr > grid.length-1 || sc > grid[0].length-1 || grid[sr][sc] == 0)
             return;
         
         grid[sr][sc] = 0;
-        count++;
         
         dfs(grid, sr + 1, sc);
         dfs(grid, sr - 1, sc);
@@ -34,17 +32,10 @@ class Solution {
                 dfs(grid, grid.length-1, i);
                 
         int enclaves = 0;
-        for(int i = 0; i < grid.length; i++) {
-            for(int j = 0; j < grid[0].length; j++) {
-                
-                if(grid[i][j] == 1) {
-                    count = 0;
-                    dfs(grid, i, j);
-                    enclaves += count;
-                    
-                }
-            }
-        }
+        for(int i = 0; i < grid.length; i++)
+            for(int j = 0; j < grid[0].length; j++)
+                if(grid[i][j] == 1) 
+                    enclaves++;
         
         return enclaves;
     }
