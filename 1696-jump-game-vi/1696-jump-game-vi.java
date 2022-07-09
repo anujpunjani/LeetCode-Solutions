@@ -3,7 +3,7 @@ class Solution {
         
         int n = nums.length;
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0]-a[0]);
-        
+        // dekh kr raha hai 
         int[] dp = new int[n];
         dp[n-1] = nums[n-1];
         pq.add(new int[]{nums[n-1], n-1});
