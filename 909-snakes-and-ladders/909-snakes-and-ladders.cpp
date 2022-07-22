@@ -6,21 +6,31 @@ public:
         queue<pair<int, int>> q;
         q.push({1, 0});
         
-        vector<int> vis(graph.size(), -1);
+        int ans = graph.size();
+        
+        vector<bool> vis(graph.size(), false);
         
         while(q.size() > 0) {
             
             pair<int, int> front = q.front();
             q.pop();
             
-            if(vis[front.first] != -1) continue;
-            vis[front.first] = front.second;
+            if(vis[front.first] == true)
+                continue;
             
-            for(int nbr : graph[front.first])
+            vis[front.first] = true;
+            
+            if(front.first == graph.size() - 1) {
+                ans = min(ans, front.second);
+                continue;
+            }
+            
+            for(int nbr : graph[front.first]) {
                 q.push({nbr, front.second + 1});
+            }
         }
         
-        return vis[graph.size() - 1];
+        return ans == graph.size() ? -1 : ans;
     }
     
     int snakesAndLadders(vector<vector<int>>& matrix) {
@@ -52,12 +62,14 @@ public:
         vector<vector<int>> graph(size + 1);
         
         for(cell = 1 ; cell <= size; cell++) {
+            
             for(int d = 1; d <= 6 && cell + d <= size; d++) {
              
                 if(board[cell + d] == cell) continue;
                 graph[cell].push_back(board[cell + d]);
             }
         }
+        
         return bfs(graph);
     }
 };
