@@ -1,8 +1,7 @@
 class Solution {
 public:
-    vector<int> count;
-    
-    void merge(int left, int mid, int right, vector<pair<int, int>> &nums) {
+
+    void merge(int left, int mid, int right, vector<pair<int, int>> &nums, vector<int> &count) {
         int i = left;
         int j = mid + 1;
         int k = 0;
@@ -25,13 +24,13 @@ public:
             nums[v] = sorted_nums[v - left];
     }
     
-    void mergesort(int left, int right, vector<pair<int, int>> &nums) {
+    void mergesort(int left, int right, vector<pair<int, int>> &nums, vector<int> &count) {
         if(left >= right) return;
         
         int mid = left + (right - left)/2;
-        mergesort(left, mid, nums);
-        mergesort(mid + 1, right, nums);
-        merge(left, mid, right, nums);
+        mergesort(left, mid, nums, count);
+        mergesort(mid + 1, right, nums, count);
+        merge(left, mid, right, nums, count);
     }
     
     vector<int> countSmaller(vector<int>& nums) {
@@ -40,8 +39,8 @@ public:
         for(int i = 0; i < nums.size(); i++)
             also_nums.push_back({nums[i], i});
         
-        count = vector<int>(nums.size(), 0);
-        mergesort(0, nums.size()-1, also_nums);
+        vector<int> count(nums.size(), 0);
+        mergesort(0, nums.size()-1, also_nums, count);
         return count;
     }
 };
