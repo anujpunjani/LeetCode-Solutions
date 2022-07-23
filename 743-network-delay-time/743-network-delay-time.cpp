@@ -23,7 +23,7 @@ public:
         n++;
         vector<vector<Pair>> graph(n);
         for(auto time : times) 
-            graph[time[0]].emplace_back(time[1], time[2]);
+            graph[time[0]].push_back(Pair(time[1], time[2]));
         
         
         vector<int> vis(n, -1);
