@@ -22,29 +22,28 @@ class Solution {
     
     HashMap<Node, Node> map;
     
-    private void dfs(Node node, HashMap<Node, Boolean> vis, boolean copy) {
-        
-        if(vis.getOrDefault(node, false) == true) return;
-        
+    private Node dfs(Node node, HashMap<Node, Boolean> vis) {
+
         vis.put(node, true);
-        if(!copy)
-            map.put(node, new Node(node.val, new ArrayList<>()));
-        else
-            for(Node nbr : node.neighbors) 
-                map.get(node).neighbors.add(map.get(nbr));                
+        map.put(node, new Node(node.val, new ArrayList<>()));
             
-        for(Node nbr : node.neighbors)
-            dfs(nbr, vis, copy);
+        for(Node nbr : node.neighbors) {
+            if(!vis.containsKey(nbr)) {
+                Node temp = dfs(nbr, vis);
+                map.get(node).neighbors.add(temp);    
+            } else {
+                map.get(node).neighbors.add(map.get(nbr)); 
+            }
+        }
         
+        return map.get(node);
     }
     
     public Node cloneGraph(Node node) {
         
         if(node == null) return node;
-        
         map = new HashMap<>();
-        dfs(node, new HashMap<>(), false);
-        dfs(node, new HashMap<>(), true);
+        dfs(node, new HashMap<>());
         return map.get(node);
     }
 }
