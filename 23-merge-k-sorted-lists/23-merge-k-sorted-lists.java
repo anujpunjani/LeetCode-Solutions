@@ -33,16 +33,18 @@ class Solution {
         return dummy.next;
     }
     
+    ListNode helper(ListNode[] lists, int left, int right) {
+        if(left == right) return lists[left];
+        
+        int mid = left + (right - left)/2;
+        ListNode first = helper(lists, left, mid);
+        ListNode second = helper(lists, mid + 1, right);
+        
+        return merge2LL(first, second);
+    }
+    
     public ListNode mergeKLists(ListNode[] lists) {
-        
-        ListNode merge = null;
-        
-        for(int i = 0; i < lists.length; i++) {
-            
-            merge = merge2LL(lists[i], merge);
-            
-        }
-        
-        return merge;
+        if(lists.length == 0) return null;
+        return helper(lists, 0, lists.length - 1);
     }
 }
