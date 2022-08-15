@@ -14,7 +14,7 @@ public:
     
     class Compare {
         public:
-            bool operator() (tuple<TreeNode*, int, int> &t1, tuple<TreeNode*, int, int> &t2) {
+            bool operator() (tuple<TreeNode*, int, int> t1, tuple<TreeNode*, int, int> t2) {
                 if(get<1>(t1) == get<1>(t2))
                     return get<0>(t1)->val > get<0>(t2)->val;
                 
