@@ -7,11 +7,12 @@ public:
             if(target == 0) ans.push_back(csum);
             return;
         }
-        if(target < 0) return;
         
-        csum.push_back(candidates[idx]);
-        combinationSum(idx, candidates, target - candidates[idx], csum);
-        csum.pop_back();
+        if(candidates[idx] <= target) {
+            csum.push_back(candidates[idx]);
+            combinationSum(idx, candidates, target - candidates[idx], csum);
+            csum.pop_back();            
+        }
         combinationSum(idx + 1, candidates, target, csum);
     }
     
