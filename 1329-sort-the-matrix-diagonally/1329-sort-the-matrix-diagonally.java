@@ -11,17 +11,10 @@ class Solution {
                 store.add(mat[i][j]);
             
             Collections.sort(store);
-            // System.out.println(store);
 
             for(int i = 0, j = gap; i < n && j < m; i++, j++)
                 mat[i][j] = store.get(i);
         }
-        
-        // for(int i = 0; i < n; i++) {
-        //     for(int j = 0; j < m; j++)
-        //         System.out.print(mat[i][j] + " ");
-        //     System.out.println();
-        // }
         
         for(int gap = 1; gap < n; gap++) {
             
