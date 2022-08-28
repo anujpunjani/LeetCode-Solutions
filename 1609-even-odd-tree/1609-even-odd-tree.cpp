@@ -28,11 +28,9 @@ public:
                 q.pop();
                 
                 if(level%2 == 0) {
-                    // cout << front->val << " " << prev << endl; 
                     if(front->val%2 != 1 || front->val <= prev)
                         return false;
-                }else{
-                    // cout << front->val << " " << prev << endl; 
+                } else {
                     if(front->val%2 != 0 || front->val >= prev)
                         return false;
                 }
