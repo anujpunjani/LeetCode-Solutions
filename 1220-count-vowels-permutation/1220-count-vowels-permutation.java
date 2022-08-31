@@ -1,20 +1,25 @@
 class Solution {
     public int countVowelPermutation(int n) {
-        
+        int mod = (int)1e9 + 7;
         long a = 1, e = 1, i = 1, o = 1, u = 1;
-        int mod = (int)1e9+7;
-        long a2, e2, i2, o2, u2; 
         
-        for (int j = 2; j <= n; j++) {
-            a2 = (e + i + u) % mod;
-            e2 = (a + i) % mod;
-            i2 = (e + o) % mod;
-            o2 = i;
-            u2 = (o + i) % mod;
+        for(int j = 2; j <= n; j++) {
             
-            a = a2; e = e2; i = i2; o = o2; u = u2;
+            long new_a = (e + i + u) % mod;
+            long new_e = (a + i) % mod;
+            long new_i = (e + o) % mod;
+            long new_o = i % mod;
+            long new_u = (i + o) % mod;
+            
+            a = new_a;
+            e = new_e;
+            i = new_i;
+            o = new_o;
+            u = new_u;
         }
         
-        return (int)((a + e + i + o + u) % mod);
+        long ans = (a + e + i + o + u) % mod;
+        
+        return (int) ans;
     }
 }
