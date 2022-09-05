@@ -14,43 +14,13 @@
  * }
  */
 class Solution {
-    
-    private TreeNode delete(TreeNode root, int key) {
-        
-        if(root == null) return null;
-        
-        if(root.val == key) {
-            if(root.left == null && root.right == null)
-                return null;
-            else if(root.left == null) 
-                return root.right;
-            else if(root.right == null) 
-                return root.left;
-            else {
-                TreeNode ios = root.right;
-                while(ios.left != null) ios = ios.left;
-                root.val = ios.val;
-                delete(root, root.val);
-                return root;
-            }
-        } else if(root.val < key)
-            root.right = delete(root.right, key);
-        else
-            root.left = delete(root.left, key);
-        
-        return root;
-    }
-    
     public TreeNode trimBST(TreeNode root, int low, int high) {
-        if(root == null) return null;
-        
+        if (root == null) return root;
+        if (root.val > high) return trimBST(root.left, low, high);
+        if (root.val < low) return trimBST(root.right, low, high);
+
         root.left = trimBST(root.left, low, high);
         root.right = trimBST(root.right, low, high);
-        
-        if(root.val < low || root.val > high) {
-            root = delete(root, root.val);
-        }
-        
-        return root;
+        return root;       
     }
 }
