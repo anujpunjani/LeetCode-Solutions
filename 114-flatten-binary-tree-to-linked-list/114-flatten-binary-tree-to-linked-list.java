@@ -14,28 +14,23 @@
  * }
  */
 class Solution {
-    
-    private void store(TreeNode root, ArrayList<TreeNode> space) {
-        
-        if(root == null) return;
-        
-        space.add(root);
-        store(root.left, space);
-        store(root.right, space);
-    }
-    
     public void flatten(TreeNode root) {
-        ArrayList<TreeNode> space = new ArrayList<>();
-        store(root, space);
+        if(root == null) return;
+        if(root.left == null && root.right == null) return;
         
-        int size = space.size() - 1;
-        int i = 1;
-        while(size --> 0) {
-            root.right = space.get(i);
+        flatten(root.left);
+        flatten(root.right);
+        
+        TreeNode curr = root.left;
+        
+        while(curr != null && curr.right != null)
+            curr = curr.right;
+        
+        if(curr != null) {
+            curr.right = root.right;
+            root.right = root.left;
             root.left = null;
-            root = root.right;
-            i++;
         }
-        
+            
     }
 }
