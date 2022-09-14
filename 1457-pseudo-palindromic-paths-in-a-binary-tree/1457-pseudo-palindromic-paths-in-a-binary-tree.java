@@ -14,24 +14,39 @@
  * }
  */
 class Solution {
-    private int result = 0;
-
-    public int pseudoPalindromicPaths(TreeNode root) {
-        solve(root, new HashSet<Integer>());
-        return result;
-    }
-
-    private void solve(TreeNode root, HashSet<Integer> set) {
-        if (root == null) return;
-
-        if (set.contains(root.val)) set.remove(root.val); 
-        else set.add(root.val);
-
-        if (root.left == null && root.right == null) {
-            result += (set.size() <= 1) ? 1 : 0;
+    
+    int count = 0;
+    
+    private void help(TreeNode root, HashMap<Integer, Integer> map) {
+        if(root == null) return;
+        
+        map.put(root.val, map.getOrDefault(root.val, 0) + 1);
+        
+        if(root.left == null && root.right == null) {
+            boolean flag = true;
+            int odd = 0;
+            for(Map.Entry<Integer, Integer> e : map.entrySet()) {
+                if(e.getValue() % 2 == 1) {
+                    odd++;
+                    if(odd > 1) {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if(flag) count++;
+            map.put(root.val, map.getOrDefault(root.val, 0) - 1);
+            return;
         }
-
-        solve(root.left, new HashSet<>(set));
-        solve(root.right, new HashSet<>(set));
+        
+        help(root.left, map);
+        help(root.right, map);
+        map.put(root.val, map.getOrDefault(root.val, 0) - 1);
+    }
+    
+    public int pseudoPalindromicPaths (TreeNode root) {
+        count = 0;
+        help(root, new HashMap());
+        return count;
     }
 }
