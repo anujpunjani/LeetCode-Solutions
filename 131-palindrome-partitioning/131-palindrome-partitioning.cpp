@@ -1,26 +1,24 @@
 class Solution {
 public:
     
-    bool isPalindrome(string s, int left, int right) {
-        while(left <= right) {
-            if(s[left++] != s[right--])
-                return false;
-        }
+    bool isPalindrome(string s) {
+        int i = 0, j = s.size()-1;
+        while(i <= j) if(s[i++] != s[j--]) return false;
         return true;
     }
     
-    void partition(int index, string s, vector<string> path, vector<vector<string>> &ans) {
-        
-        if(index == s.size()) {
-            ans.push_back(path);
+    void partition(int idx, string s, vector<string> subs, vector<vector<string>> &ans) {
+        if(idx == s.size()) {
+            ans.push_back(subs);
             return;
         }
         
-        for(int i = index; i < s.size(); i++) {
-            if(isPalindrome(s, index, i)) {
-                path.push_back(s.substr(index, i - index + 1));
-                partition(i + 1, s, path, ans);
-                path.pop_back();
+        for(int i = idx; i < s.size(); i++) {
+            string sub = s.substr(idx, i - idx + 1);
+            if(isPalindrome(sub)) {
+                subs.push_back(sub);
+                partition(i + 1, s, subs, ans);
+                subs.pop_back();
             }
         }
     }
