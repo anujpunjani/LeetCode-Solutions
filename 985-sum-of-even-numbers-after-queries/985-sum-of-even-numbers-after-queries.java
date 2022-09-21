@@ -3,16 +3,17 @@ class Solution {
         int ans[] = new int[queries.length];
         int evenSum = 0;
         for(int num : nums) if(num%2 == 0) evenSum += num;
-        int i = 0;
-        for(int[] query : queries) {
-            int val = query[0];
-            int index = query[1];
+
+        for(int i = 0; i < queries.length; i++) {
+            int val = queries[i][0];
+            int index = queries[i][1];
             
-            int temp = nums[index] + val;
             if(nums[index] % 2 == 0) evenSum -= nums[index];
-            if(temp % 2 == 0) evenSum += temp;
-            nums[index] = temp;
-            ans[i++] = evenSum;
+            nums[index] += val;
+            
+            if(nums[index] % 2 == 0) evenSum += nums[index];
+            
+            ans[i] = evenSum;
         }
         
         return ans;
