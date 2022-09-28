@@ -1,19 +1,17 @@
 class Solution {
     public int longestContinuousSubstring(String s) {
-        StringBuilder sb = new StringBuilder("");
         int ans = 1;
+        int count = 1;
         
-        sb.append(s.charAt(0));
         for(int i = 1; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(sb.charAt(sb.length() - 1) == c - 1)
-                sb.append(c);
-            else {
-                sb = new StringBuilder("");
-                sb.append(c);
-            }
+            char pc = s.charAt(i - 1);
+            if(pc == c - 1)
+                count++;
+            else 
+                count = 1;
             
-            ans = Math.max(ans, sb.length());
+            ans = Math.max(ans, count);
         }
         
         return ans;
