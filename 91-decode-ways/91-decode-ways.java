@@ -2,17 +2,15 @@ class Solution {
     
     private int numDecodings(int idx, String s, int []dp) {
         if(idx == s.length()) return 1;
-        if(dp[idx] != 0) return dp[idx];
+        if(dp[idx] != -1) return dp[idx];
         
         int ans = 0;
-        int ch1 = s.charAt(idx) - '0';
         
-        if(ch1 >= 1 && ch1 <= 9) 
+        if(s.charAt(idx) != '0')
             ans += numDecodings(idx + 1, s, dp);
         
         if(idx + 1 < s.length()) {
-            int ch2 = s.charAt(idx + 1) - '0';
-            int num = ch1 * 10 + ch2;
+            int num = (s.charAt(idx) - '0') * 10 + s.charAt(idx + 1) - '0';
             if(num >= 10 && num <= 26)
                 ans += numDecodings(idx + 2, s, dp);
         }
@@ -21,6 +19,8 @@ class Solution {
      }
     
     public int numDecodings(String s) {
-        return numDecodings(0, s, new int[s.length() + 1]);
+        int []dp = new int[s.length()];
+        Arrays.fill(dp, -1);
+        return numDecodings(0, s, dp);
     }
 }
