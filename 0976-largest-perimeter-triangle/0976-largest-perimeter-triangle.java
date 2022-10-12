@@ -7,10 +7,8 @@ class Solution {
             int b = nums[i - 1];
             int c = nums[i - 2];
             
-            if(a + b <= c || a + c <= b || c + b <= a)
-                continue;
-            
-            return a + b + c;
+            if(b + c > a)
+                return a + b + c;
         }
         
         return 0;
