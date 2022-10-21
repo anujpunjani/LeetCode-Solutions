@@ -8,9 +8,8 @@ class Solution {
         long ans = 0;
         for(int i = start; i < s.length(); i++) {
             if(s.charAt(i) < '0' || s.charAt(i) > '9') break;
-            
-            int digit = (s.charAt(i) - '0');
-            ans = ans * 10 + digit;
+
+            ans = ans * 10 + (s.charAt(i) - '0');;
             
             if(-ans <= Integer.MIN_VALUE && negative) 
                 return Integer.MIN_VALUE;
