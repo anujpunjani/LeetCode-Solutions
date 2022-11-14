@@ -1,4 +1,8 @@
 class Solution {
+ 
+    
+    // COPY PASTED DO IT AGAIN
+    
     public int removeStones(int[][] stones) {
  
         HashSet<Pair <Integer,Integer>> visited = new HashSet<>(); 
