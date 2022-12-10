@@ -14,39 +14,23 @@ public:
     
     int mod = (int)1e9 + 7;
     
-    int sumOfTree(TreeNode* root, unordered_map<TreeNode*, int> &m) {
+    int sumOfTree(TreeNode* root, vector<int> &sums) {
         if(root == nullptr) return 0;
         
-        int left = sumOfTree(root->left, m);
-        int right = sumOfTree(root->right, m);
+        int left = sumOfTree(root->left, sums);
+        int right = sumOfTree(root->right, sums);
         
         int sum = left + root->val + right;
-        m[root] = sum;
+        sums.push_back(sum);
         return sum;
     }
     
-    void maxProduct(TreeNode* root, unordered_map<TreeNode*, int> &m, long long int &max_e, long long int total_sum) {
-        if(root == nullptr) return;
-        
-        int left = m[root->left];
-        int right = m[root->right];
-        
-        max_e = max(max_e, 
-                    max(
-                        (total_sum - left) * left, 
-                        (total_sum - right) * right
-                   )
-                   );
-        
-        maxProduct(root->left, m, max_e, total_sum);
-        maxProduct(root->right, m, max_e, total_sum);
-    }
-    
     int maxProduct(TreeNode* root) {
-        unordered_map<TreeNode*, int> m;
-        long long int total_sum = sumOfTree(root, m);
+        vector<int> sums;
+        long long int total_sum = sumOfTree(root, sums);
         long long int max_e = INT_MIN;
-        maxProduct(root, m, max_e, total_sum);
+        for(int sum : sums)
+            max_e = max(max_e, sum * (total_sum - sum));
         return max_e % mod;
     }
 };
