@@ -5,13 +5,13 @@ public:
         
         if(idx >= nums.size()) {
             if(fill.size() > 1)
-                ans.insert(vector<int>(fill));
+                ans.insert(fill);
             return;
         }
         
         fillSubsequences(idx + 1, nums, fill, ans);
         
-        if(fill.size() == 0 || fill[fill.size() - 1] <= nums[idx]) {
+        if(fill.empty() || fill.back() <= nums[idx]) {
             fill.push_back(nums[idx]);
             fillSubsequences(idx + 1, nums, fill, ans);
         }
@@ -19,9 +19,7 @@ public:
     
     vector<vector<int>> findSubsequences(vector<int>& nums) {
         set<vector<int>> ans;
-        vector<int> fill;
-        fillSubsequences(0, nums, fill, ans);
-        
+        fillSubsequences(0, nums, vector<int>(), ans);
         return vector<vector<int>>(ans.begin(), ans.end());
     }
 };
